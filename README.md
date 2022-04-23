@@ -57,11 +57,24 @@ Other configuration can be decided by yourself, based on the instance being used
 ## Questions
 
  1. How long did you spend on this assessment in total?\
- _
+ _  4 hours 
 
  2. What was the most difficult task?\
- _
+ _  kubernetes authentication for deployment, terraform ingress
 
  3. If you had an unlimited amount of time to complete this task, what would you have done differently?\
- _
+ _ kubernetes deployment on authentication part
 
+
+
+##################################################################
+
+
+
+Dockerfile is inside application folder. when ci/cd will run it will build using this directory.
+
+I have created q1 q2 and q3 folder for reference
+
+q1 holds dockerfile
+q2 folder holds gitlab ci yaml
+q3 folder holds terrform.tf
