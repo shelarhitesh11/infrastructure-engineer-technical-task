@@ -1,0 +1,12 @@
+FROM node:16
+ENV NODE_ENV dev
+RUN mkdir /app
+COPY . /app
+RUN chown node:node /app
+RUN chmod 770 /app
+WORKDIR /app
+RUN npm install -g npm@8.7.0
+RUN npm install
+RUN npm run build
+ENTRYPOINT ["node", "/app/build/index.js"]
+EXPOSE 3000

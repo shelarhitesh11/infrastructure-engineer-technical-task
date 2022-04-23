@@ -1,0 +1,26 @@
+default:
+  image: <CUSTOM BUILDER image with GIT, DOCKER and NPM package installed>
+
+stages:
+  - build
+  - push
+  - deploy
+
+build-docker-image:
+  stage: build
+  script:
+    - git clone https://shelarhitesh11:$gitlab-ci-token@github.com/import-io/infrastructure-engineer-technical-task.git
+    - cd infrastructure-engineer-technical-task/application/
+    - docker build -t <Imaginary-amazon-docker-registry>/importioapp:1 .
+
+push-docker-image:
+  stage: push
+  script:
+    - docker push <Imaginary-amazon-docker-registry>/importioapp:1
+
+create-deployment:
+  image: bitnami/kubectl:latest
+  stage: deploy
+  script:
+    - kubectl replace -f kubernetes/deployment.yaml -n <NAMESPACE>
+    - kubectl replace -f kubernetes/service.yaml -n <NAMESPACE>

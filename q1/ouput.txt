@@ -1,0 +1,63 @@
+[hshelar@localhost application]$ docker build -t infra:1 .
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+STEP 1/12: FROM node:16
+STEP 2/12: ENV NODE_ENV dev
+--> Using cache d91dfffb26d8cba0802e69f38f1ada59cb6de5fd2790c9d718c55334cbffd379
+--> d91dfffb26d
+STEP 3/12: RUN mkdir /app
+--> Using cache 0bfd68bbdc12ae750e4db517840975b4829defebe5425f6c73bb23301a682e6c
+--> 0bfd68bbdc1
+STEP 4/12: COPY . /app
+--> de11d41487e
+STEP 5/12: RUN chown node:node /app
+--> d91cd150db0
+STEP 6/12: RUN chmod 770 /app
+--> 752a75a3149
+STEP 7/12: WORKDIR /app
+--> 4f725273e1f
+STEP 8/12: RUN npm install -g npm@8.7.0
+
+removed 23 packages, changed 79 packages, and audited 197 packages in 12s
+
+10 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm notice
+npm notice New minor version of npm available! 8.5.0 -> 8.7.0
+npm notice Changelog: <https://github.com/npm/cli/releases/tag/v8.7.0>
+npm notice Run `npm install -g npm@8.7.0` to update!
+npm notice
+--> 8efd13b0768
+STEP 9/12: RUN npm install
+
+added 225 packages, and audited 226 packages in 16s
+
+19 packages are looking for funding
+  run `npm fund` for details
+
+1 critical severity vulnerability
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+--> b66d1e7489e
+STEP 10/12: RUN npm run build
+
+> application@1.0.0 build
+> tsc
+
+--> 119b6d06590
+STEP 11/12: ENTRYPOINT ["node", "/app/build/index.js"]
+--> f6eb3e9dc7d
+STEP 12/12: EXPOSE 3000
+COMMIT infra:1
+--> 4a857660fff
+Successfully tagged localhost/infra:1
+4a857660fff555ccd06fb0146d2a79a6954cdd9d0d8e6e84f2ed32e316b7c284
+[hshelar@localhost application]$ docker run -it -p 3000:3000 localhost/infra:1 /bin/bash
+Emulate Docker CLI using podman. Create /etc/containers/nodocker to quiet msg.
+Express server is listening at 3000
+{"level":"info","message":"GET / 200 5ms","meta":{}}
+{"level":"info","message":"GET /favicon.ico 200 1ms","meta":{}}
